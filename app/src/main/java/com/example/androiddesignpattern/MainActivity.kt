@@ -2,6 +2,7 @@ package com.example.androiddesignpattern
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.example.androiddesignpattern.observer.AndroidDevObserver
@@ -9,6 +10,9 @@ import com.example.androiddesignpattern.observer.JavaDevObserver
 import com.example.androiddesignpattern.observer.PythonDevObserver
 import com.example.androiddesignpattern.observer.Subject
 import com.example.androiddesignpattern.proxy.*
+import com.example.androiddesignpattern.strategy.Addition
+import com.example.androiddesignpattern.strategy.Dispatcher
+import com.example.androiddesignpattern.strategy.Multiplication
 import com.example.androiddesignpattern.utils.ToastUtil
 import java.lang.reflect.Proxy
 
@@ -16,6 +20,7 @@ import java.lang.reflect.Proxy
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btn_observerPattern: Button
     private lateinit var btn_proxy: Button
+    private lateinit var btn_strategy: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +33,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_observerPattern.setOnClickListener(this)
         btn_proxy = findViewById<Button>(R.id.btn_proxy)
         btn_proxy.setOnClickListener(this)
+        btn_strategy = findViewById<Button>(R.id.btn_strategy)
+        btn_strategy.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -50,7 +57,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 //                lawyer.finish()
 
                 //动态代理
-                var zhangSan:ZhangSan = ZhangSan()
+                var zhangSan: ZhangSan = ZhangSan()
                 var dynamicProxy: DynProxy = DynProxy(zhangSan)
                 val classLoader = zhangSan.javaClass.classLoader
                 val Class = arrayOf(ILawsuit::class)
@@ -60,6 +67,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 lawyer.burden()
                 lawyer.defend()
                 lawyer.finish()
+            }
+            this.btn_strategy -> {
+                ToastUtil.toast("策略模式")
+                var dispatcher: Dispatcher = Dispatcher()
+                dispatcher.setStrategy(Addition())
+                val doOperation = dispatcher.doOperation(2, 5)
+                Log.e("result=","$doOperation")
+
+                dispatcher.setStrategy(Multiplication())
+                Log.e("result=","${dispatcher.doOperation(2,5)}")
             }
         }
     }
