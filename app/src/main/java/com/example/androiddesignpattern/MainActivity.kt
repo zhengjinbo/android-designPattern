@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import com.example.administrator.myview.LogUtil
+import com.example.androiddesignpattern.builder.Meal
+import com.example.androiddesignpattern.builder.MealBuilder
 import com.example.androiddesignpattern.observer.AndroidDevObserver
 import com.example.androiddesignpattern.observer.JavaDevObserver
 import com.example.androiddesignpattern.observer.PythonDevObserver
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btn_observerPattern: Button
     private lateinit var btn_proxy: Button
     private lateinit var btn_strategy: Button
+    private lateinit var btn_builder: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_proxy.setOnClickListener(this)
         btn_strategy = findViewById<Button>(R.id.btn_strategy)
         btn_strategy.setOnClickListener(this)
+        btn_builder = findViewById<Button>(R.id.btn_builder)
+        btn_builder.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -77,6 +83,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 dispatcher.setStrategy(Multiplication())
                 Log.e("result=","${dispatcher.doOperation(2,5)}")
+            }
+            this.btn_builder->{
+                ToastUtil.toast("建造者模式")
+                val mealBuilder:MealBuilder = MealBuilder()
+                val prepareVegBurger = mealBuilder.prepareVegBurger()
+                prepareVegBurger.showItem()
+
+                mealBuilder.prepareNonVegBurger().showItem()
+
             }
         }
     }
