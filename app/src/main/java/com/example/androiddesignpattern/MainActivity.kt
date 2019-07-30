@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.example.administrator.myview.LogUtil
+import com.example.androiddesignpattern.adapter.AudioPlay
 import com.example.androiddesignpattern.builder.Meal
 import com.example.androiddesignpattern.builder.MealBuilder
 import com.example.androiddesignpattern.observer.AndroidDevObserver
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btn_proxy: Button
     private lateinit var btn_strategy: Button
     private lateinit var btn_builder: Button
+    private lateinit var btn_adapter: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btn_strategy.setOnClickListener(this)
         btn_builder = findViewById<Button>(R.id.btn_builder)
         btn_builder.setOnClickListener(this)
+        btn_adapter = findViewById<Button>(R.id.btn_adapter)
+        btn_adapter.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -91,6 +95,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 prepareVegBurger.showItem()
 
                 mealBuilder.prepareNonVegBurger().showItem()
+
+            }
+            this.btn_adapter->{
+                ToastUtil.toast("适配器模式")
+                val audioPlay = AudioPlay()
+                audioPlay.play("Mp4","/1.mp4")
+                audioPlay.play("Avi","/1.avi")
+                audioPlay.play("Vlc","/1.vlc")
+                audioPlay.play("Mp3","/1.mp3")
 
             }
         }

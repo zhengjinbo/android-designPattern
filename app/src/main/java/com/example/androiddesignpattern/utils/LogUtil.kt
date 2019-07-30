@@ -5,9 +5,7 @@ import com.example.androiddesignpattern.BuildConfig
 
 
 class LogUtil {
-
     companion object {
-
         var isDebug = BuildConfig.DEBUG
         private val TAG = "LogUtil"
 
